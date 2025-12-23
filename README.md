@@ -1,28 +1,25 @@
 # Wispr Lite
 
-Simple, minimal voice dictation for macOS. Double-tap Cmd to record, speak naturally, and have text appear in any app.
+Simple, minimal voice dictation for macOS. Press Cmd+Control to record, speak naturally, and have text appear in any app.
 
 ## Features
 
 - 🎤 **System-wide**: Works in any app (Slack, Gmail, Cursor, etc.)
-- ⚡ **Fast**: ~1-2s latency on M4 Mac
+- ⚡ **Fast**: ~1-2s latency on Apple Silicon
 - 🔒 **Private**: Everything runs on-device, no cloud
 - 💯 **Free**: Uses open-source models
-- 🎯 **Simple**: Double-tap Cmd to start/stop
+- 🎯 **Simple**: Cmd+Control to start/stop
 
 ## Installation
 
 ### 1. Install Dependencies
 
 ```bash
-cd /Users/chrisvin/dev/wispr
+# Install PortAudio (required for PyAudio)
+brew install portaudio
 
 # Install Python packages
 pip3 install -r requirements.txt
-
-# Install Ollama (optional, for cleanup)
-brew install ollama
-ollama pull llama3.2:1b
 ```
 
 ### 2. Grant Permissions
@@ -45,9 +42,9 @@ A microphone icon (🎤) will appear in your menu bar.
 ### Use it:
 
 1. Click into any text field
-2. Double-tap **Cmd** key
+2. Press **Cmd+Control** together
 3. Speak naturally
-4. Double-tap **Cmd** again (or wait for silence)
+4. Press **Cmd+Control** again to stop
 5. Text appears!
 
 ### Quit:
@@ -57,7 +54,7 @@ Click the menu bar icon → Quit
 ## How It Works
 
 ```
-Double-tap Cmd → Record Audio → Whisper Transcription → Text Injection
+Cmd+Control → Record Audio → Whisper Transcription → Text Injection
 ```
 
 - **Faster Whisper**: High-quality speech recognition

@@ -17,7 +17,7 @@ class StatusIndicator(rumps.App):
     def update_status(self, status):
         """Update the status text in menu"""
         status_map = {
-            "idle": ("🎤", "Status: Idle (Double-tap Cmd to record)"),
+            "idle": ("🎤", "Status: Idle (Cmd+Control to record)"),
             "recording": ("🔴", "Status: Recording..."),
             "processing": ("⏳", "Status: Processing...")
         }
