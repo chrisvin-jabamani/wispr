@@ -19,15 +19,8 @@ class WisprLite:
         self.indicator = StatusIndicator(self)
         self.is_recording = False
         
-        # Start hotkey listener in background thread
-        self.hotkey_listener = HotkeyListener(self.toggle_recording)
-        
-    def toggle_recording(self):
-        """Start or stop recording based on current state"""
-        if not self.is_recording:
-            self.start_recording()
-        else:
-            self.stop_recording()
+        # Start hotkey listener with separate start/stop callbacks
+        self.hotkey_listener = HotkeyListener(self.start_recording, self.stop_recording)
     
     def start_recording(self):
         """Start recording audio"""

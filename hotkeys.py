@@ -1,47 +1,52 @@
 """
-Hotkey listener - detects Cmd+Control pressed together
+Hotkey listener - hold Cmd+Control to record, release to transcribe
 """
 
 from pynput import keyboard
 
 class HotkeyListener:
-    def __init__(self, callback):
+    def __init__(self, start_callback, stop_callback):
         """
-        callback: function to call when hotkey is detected
+        start_callback: function to call when hotkey is pressed
+        stop_callback: function to call when hotkey is released
         """
-        self.callback = callback
+        self.start_callback = start_callback
+        self.stop_callback = stop_callback
         self.listener = None
         self.pressed_keys = set()
-        self.hotkey_triggered = False
+        self.is_recording = False
         
-    def on_press(self, key):
-        """Handle key press events"""
-        # Add key to pressed keys set
-        self.pressed_keys.add(key)
-        
-        # Check if both Cmd and Control are pressed
+    def _check_hotkey_pressed(self):
+        """Check if both Cmd and Control are currently pressed"""
         cmd_pressed = (keyboard.Key.cmd in self.pressed_keys or 
                       keyboard.Key.cmd_r in self.pressed_keys)
         ctrl_pressed = (keyboard.Key.ctrl in self.pressed_keys or 
                        keyboard.Key.ctrl_r in self.pressed_keys or
                        keyboard.Key.ctrl_l in self.pressed_keys)
+        return cmd_pressed and ctrl_pressed
         
-        # Trigger callback only once per key combination
-        if cmd_pressed and ctrl_pressed and not self.hotkey_triggered:
-            print("✨ Cmd+Control detected!")
-            self.hotkey_triggered = True
-            self.callback()
+    def on_press(self, key):
+        """Handle key press events"""
+        self.pressed_keys.add(key)
+        
+        # Start recording when both keys are pressed
+        if self._check_hotkey_pressed() and not self.is_recording:
+            print("✨ Cmd+Control pressed - recording...")
+            self.is_recording = True
+            self.start_callback()
     
     def on_release(self, key):
         """Handle key release events"""
-        # Remove key from pressed keys set
         if key in self.pressed_keys:
             self.pressed_keys.remove(key)
         
-        # Reset trigger flag when either key is released
+        # Stop recording when either key is released
         if key in [keyboard.Key.cmd, keyboard.Key.cmd_r, 
                    keyboard.Key.ctrl, keyboard.Key.ctrl_r, keyboard.Key.ctrl_l]:
-            self.hotkey_triggered = False
+            if self.is_recording:
+                print("✨ Keys released - stopping...")
+                self.is_recording = False
+                self.stop_callback()
     
     def start(self):
         """Start listening for hotkeys"""
@@ -50,7 +55,7 @@ class HotkeyListener:
             on_release=self.on_release
         )
         self.listener.start()
-        print("🎹 Hotkey listener started (Cmd+Control)")
+        print("🎹 Hotkey listener started (hold Cmd+Control to record)")
     
     def stop(self):
         """Stop listening"""

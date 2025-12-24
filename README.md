@@ -8,7 +8,7 @@ Simple, minimal voice dictation for macOS. Press Cmd+Control to record, speak na
 - ⚡ **Fast**: ~1-2s latency on Apple Silicon
 - 🔒 **Private**: Everything runs on-device, no cloud
 - 💯 **Free**: Uses open-source models
-- 🎯 **Simple**: Cmd+Control to start/stop
+- 🎯 **Simple**: Hold Cmd+Control to record
 
 ## Installation
 
@@ -42,9 +42,9 @@ A microphone icon (🎤) will appear in your menu bar.
 ### Use it:
 
 1. Click into any text field
-2. Press **Cmd+Control** together
+2. Hold **Cmd+Control** together
 3. Speak naturally
-4. Press **Cmd+Control** again to stop
+4. Release the keys
 5. Text appears!
 
 ### Quit:
@@ -54,7 +54,7 @@ Click the menu bar icon → Quit
 ## How It Works
 
 ```
-Cmd+Control → Record Audio → Whisper Transcription → Text Injection
+Hold Cmd+Control → Record Audio → Release → Whisper Transcription → Text Injection
 ```
 
 - **Faster Whisper**: High-quality speech recognition
@@ -91,7 +91,7 @@ Edit `transcriber.py` to change model size:
 
 - [ ] LLM cleanup (remove filler words)
 - [ ] Custom dictionary
-- [ ] Push-to-talk mode
+- [x] Push-to-talk mode
 - [ ] Command mode ("make this friendlier")
 - [ ] Settings UI
 
@@ -102,5 +102,3 @@ Built with:
 - [Whisper.cpp](https://github.com/ggerganov/whisper.cpp)
 - [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/)
 - [pynput](https://github.com/moses-palmer/pynput)
-
-Inspired by [Wispr Flow](https://wisprflow.ai)
