@@ -1,15 +1,15 @@
 # Whisper on device
 
-Simple, minimal voice dictation for macOS. Press Cmd+Control to record, speak naturally, and have text appear in any app.
+Open-source, on-device voice dictation for macOS. Press Cmd+Control to record, speak naturally, and have text appear in any app.
 
 ## Features
 
-- 🎤 **System-wide**: Works in any app (Slack, Gmail, Cursor, etc.)
-- ⚡ **Fast**: ~0.5-1s on Apple Silicon (MLX), ~2-3s on Intel
-- 🔒 **Private**: Everything runs on-device, no cloud
-- 💯 **Free**: Uses open-source models
-- 🎯 **Simple**: Hold Cmd+Control to record
-- 🧹 **Smart Cleanup**: Optional LLM post-processing via Ollama (removes filler words, fixes grammar)
+- **System-wide**: Works in any app (Slack, Gmail, Cursor, etc.)
+- **Fast**: ~0.5-1s on Apple Silicon (MLX), ~2-3s on Intel
+- **Private**: Everything runs on-device, no cloud
+- **Free**: Uses open-source models
+- **Simple**: Hold Cmd+Control to record
+- **Smart Cleanup**: Optional LLM post-processing via Ollama (removes filler words, fixes grammar)
 
 ## Installation
 
@@ -38,7 +38,10 @@ On first run, macOS will request:
 python3 main.py
 ```
 
-A microphone icon (🎤) will appear in your menu bar.
+A status icon will appear in your menu bar:
+- **○** — Idle (ready to record)
+- **●** — Recording in progress
+- **◐** — Processing transcription
 
 ### Use it:
 
@@ -76,7 +79,9 @@ The backend is automatically selected based on your hardware.
 
 ## LLM Cleanup (Optional)
 
-Wispr can use Ollama to clean up transcriptions — removing filler words (um, uh, like), fixing grammar, and adding punctuation.
+Whisper on device can use Ollama to clean up transcriptions — removing filler words (um, uh, like), fixing grammar, and adding punctuation.
+
+**Note:** This feature is disabled by default. To enable it, edit `main.py` and change `enabled=False` to `enabled=True`.
 
 ### Setup
 
@@ -93,9 +98,10 @@ ollama serve
 
 ### How it works
 
-- If Ollama is running, cleanup is **automatic**
+- LLM cleanup is **disabled by default** (raw transcription is used)
+- To enable: set `enabled=True` in `main.py`
+- If enabled and Ollama is running, cleanup is automatic
 - If Ollama is not running, raw transcription is used (still works!)
-- No configuration needed — just install and run Ollama
 
 ### Example
 
@@ -110,6 +116,7 @@ Edit `transcriber.py` to change model size:
 - `base`: Good balance (default)
 - `small`: More accurate, slower
 - `medium`: Very accurate, much slower
+- `large`: Most accurate, slowest
 
 ## Troubleshooting
 
@@ -128,14 +135,6 @@ Edit `transcriber.py` to change model size:
 **Text not appearing**
 - Ensure Accessibility permissions are granted
 - Try clicking in the text field again
-
-## Future Features
-
-- [x] LLM cleanup (remove filler words) - via Ollama
-- [ ] Custom dictionary
-- [x] Push-to-talk mode
-- [ ] Command mode ("make this friendlier")
-- [ ] Settings UI
 
 ## Credits
 

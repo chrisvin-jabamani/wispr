@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Wispr Lite - Simple voice dictation for macOS
+Whisper on device - Simple voice dictation for macOS
 Press Cmd+Control to start/stop recording
 """
 
@@ -78,7 +78,7 @@ class WisprLite:
     
     def run(self):
         """Start the application"""
-        print("🚀 Wispr Lite started!")
+        print("🚀 Whisper on device started!")
         print("📌 Press Cmd+Control to start/stop recording")
         print("📌 Press Ctrl+C to quit")
         
