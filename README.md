@@ -1,4 +1,4 @@
-# Wispr Lite
+# Whisper Lite
 
 Simple, minimal voice dictation for macOS. Press Cmd+Control to record, speak naturally, and have text appear in any app.
 

@@ -53,6 +53,8 @@ class WisprLite:
     def _process_audio(self, audio_file):
         """Process audio file and inject text"""
         try:
+            print(f"🔍 DEBUG: Audio file: {audio_file}")
+            
             # Transcribe audio
             text = self.transcriber.transcribe(audio_file)
             print(f"📝 Transcribed: {text}")
@@ -69,6 +71,8 @@ class WisprLite:
                 
         except Exception as e:
             print(f"❌ Error processing audio: {e}")
+            import traceback
+            traceback.print_exc()
         finally:
             self.indicator.update_status("idle")
     
